@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>456</width>
+    <height>185</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Servidor de Arquivos - Lucas Rocha</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="formLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>20</y>
+      <width>241</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_ip">
+       <property name="text">
+        <string>IP:</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_porta">
+       <property name="text">
+        <string>Porta</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QTextEdit" name="textEdit_ip"/>
+     </item>
+     <item row="1" column="1">
+      <widget class="QTextEdit" name="textEdit_porta"/>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QLabel" name="label_tempo_aberto_m">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>158</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Tempo Servidor Aberto:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_minutos">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>50</y>
+      <width>158</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>0 minutos</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="botao_parar">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>158</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Parar</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_status">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>90</y>
+      <width>239</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Status:         Parado</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_ip_botao">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>120</y>
+      <width>239</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>IP:</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="botao_iniciar">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>150</y>
+      <width>239</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Clique para iniciar</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>botao_iniciar</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>textEdit_porta</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>223</x>
+     <y>221</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>205</x>
+     <y>67</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>botao_iniciar</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>textEdit_ip</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>241</x>
+     <y>215</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>160</x>
+     <y>40</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>botao_parar</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>textEdit_porta</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>60</x>
+     <y>217</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>191</x>
+     <y>69</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>botao_parar</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>textEdit_ip</receiver>
+   <slot>setDisabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>90</x>
+     <y>210</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>262</x>
+     <y>41</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

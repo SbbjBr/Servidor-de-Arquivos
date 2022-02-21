@@ -1,2 +1,2 @@
 # ServidorArquivos
- Cria um servidor de arquivos online
+ Cria um servidor de arquivos online via LAN.
