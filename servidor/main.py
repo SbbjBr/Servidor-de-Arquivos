@@ -78,7 +78,7 @@ class Ui_MainWindow(object):
         self.botao_parar.setGeometry(QtCore.QRect(10, 150, 158, 24))
         self.botao_parar.setObjectName("botao_parar")
         self.botao_parar.setText("Parar")
-        self.botao_iniciar.clicked.connect(self.parar_servidor)
+        #self.botao_iniciar.clicked.connect(self.parar_servidor)
         # =============================================================================
 
 
@@ -99,6 +99,7 @@ class Ui_MainWindow(object):
     def iniciar_servidor(self):
         import http.server
         import socketserver
+        import time
 
         self.PORT = 8000
 
@@ -106,9 +107,12 @@ class Ui_MainWindow(object):
         self.httpd = socketserver.TCPServer(("", self.PORT), self.Handler)
 
         self.httpd.serve_forever()
-    
-    def parar_servidor(self):
+
+        time.sleep(10)
+
         self.httpd.shutdown()
+
+
 
 if __name__ == "__main__":
     import sys
