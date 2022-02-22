@@ -1,6 +1,7 @@
 from threading import Thread
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMessageBox
+import sys
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -207,11 +208,9 @@ class Ui_MainWindow(object):
         #========================   Funções botões ============================================
         self.botao_iniciar.clicked.connect(self.click_abrir_servidor)
         self.botao_parar.clicked.connect(self.click_fechar_servidor)
-        
-
+        MainWindow.show()
 
     def abrir_servidor(self):
-        import time
         import http.server
         import socketserver
         global httpd
@@ -234,7 +233,6 @@ class Ui_MainWindow(object):
 
     def click_abrir_servidor(self):
         import threading
-        import time
         global abrir_servidor
 
         abrir_servidor = threading.Thread(target=self.abrir_servidor)
@@ -271,12 +269,15 @@ class Ui_MainWindow(object):
             time.sleep(60)
             self.lcdnumero.display(self.minutos)
             self.minutos += 1
+    
+class MyWindow(QtWidgets.QMainWindow):
+    def closeEvent(self,event):
+        import os
+        os.system(f'cmd /c "taskkill /F /PID {os.getpid()}')
 
 if __name__ == "__main__":
-    import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
+    MainWindow = MyWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-    MainWindow.show()
     sys.exit(app.exec_())
