@@ -211,9 +211,9 @@ class Ui_MainWindow(object):
 
 
     def abrir_servidor(self):
+        import time
         import http.server
         import socketserver
-        import threading
         global httpd
         global servidor_aberto
 
@@ -224,8 +224,17 @@ class Ui_MainWindow(object):
 
         httpd.serve_forever()
 
+    def cronometro(self):
+        import time
+        import os
+
+        if self.checkBox.isChecked() != 0:
+            time.sleep(int(self.spinBox_tempo.text())*60)
+            os.system(f'cmd /c "taskkill /F /PID {os.getpid()}')
+
     def click_abrir_servidor(self):
         import threading
+        import time
         global abrir_servidor
 
         abrir_servidor = threading.Thread(target=self.abrir_servidor)
@@ -233,6 +242,10 @@ class Ui_MainWindow(object):
 
         abrir_relogio = threading.Thread(target=self.relogio)
         abrir_relogio.start()
+
+        abrir_cronometro = threading.Thread(target=self.cronometro)
+        abrir_cronometro.start()
+
 
     def click_fechar_servidor(self):
         popup = QtWidgets.QMessageBox()
