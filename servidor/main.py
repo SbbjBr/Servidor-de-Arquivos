@@ -1,6 +1,4 @@
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):     
@@ -38,7 +36,7 @@ class Ui_MainWindow(object):
 
         # =================== Labels mutaveis =========================================
         self.label_minutos = QtWidgets.QLabel(self.centralwidget)
-        self.label_minutos.setGeometry(QtCore.QRect(40, 50, 158, 16))
+        self.label_minutos.setGeometry(QtCore.QRect(60, 50, 158, 16))
         self.label_minutos.setObjectName("label_minutos")
         self.label_minutos.setText("0 minutos")
 
@@ -58,10 +56,14 @@ class Ui_MainWindow(object):
         self.textEdit_ip = QtWidgets.QTextEdit(self.formLayoutWidget)
         self.textEdit_ip.setObjectName("textEdit_ip")
         self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.textEdit_ip)
+        self.textEdit_ip.setPlaceholderText("localhost")
+        self.textEdit_ip.setReadOnly(True)
 
         self.textEdit_porta = QtWidgets.QTextEdit(self.formLayoutWidget)
         self.textEdit_porta.setObjectName("textEdit_porta")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.textEdit_porta)
+        self.textEdit_porta.setPlaceholderText("8000")
+        self.textEdit_porta.setText("8000")
         # =============================================================================
         
         
@@ -70,11 +72,13 @@ class Ui_MainWindow(object):
         self.botao_iniciar.setGeometry(QtCore.QRect(200, 150, 239, 24))
         self.botao_iniciar.setObjectName("botao_iniciar")
         self.botao_iniciar.setText("Clique para iniciar")
+        self.botao_iniciar.clicked.connect(self.click_iniciar)
 
         self.botao_parar = QtWidgets.QPushButton(self.centralwidget)
         self.botao_parar.setGeometry(QtCore.QRect(10, 150, 158, 24))
         self.botao_parar.setObjectName("botao_parar")
         self.botao_parar.setText("Parar")
+        self.botao_iniciar.clicked.connect(self.parar_servidor)
         # =============================================================================
 
 
@@ -85,11 +89,26 @@ class Ui_MainWindow(object):
         self.botao_parar.clicked['bool'].connect(self.textEdit_ip.setDisabled) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        def abrir_server(self):
-            import http.server
-            import socketserver
 
-            pass
+    def click_iniciar(self):
+        import threading
+
+        thread = threading.Thread(target = self.iniciar_servidor)
+        thread.start()
+
+    def iniciar_servidor(self):
+        import http.server
+        import socketserver
+
+        self.PORT = 8000
+
+        self.Handler = http.server.SimpleHTTPRequestHandler
+        self.httpd = socketserver.TCPServer(("", self.PORT), self.Handler)
+
+        self.httpd.serve_forever()
+    
+    def parar_servidor(self):
+        self.httpd.shutdown()
 
 if __name__ == "__main__":
     import sys
