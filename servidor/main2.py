@@ -66,6 +66,8 @@ class Ui_MainWindow(object):
         self.label.setGeometry(QtCore.QRect(130, 180, 49, 16))
         self.label.setObjectName("label")
         self.label.setText("minutos")
+
+        
         # ========================================================================================
 
         #=================================== Label mutaveis ======================================
@@ -105,8 +107,7 @@ class Ui_MainWindow(object):
         self.botao_parar.setGeometry(QtCore.QRect(10, 220, 158, 24))
         self.botao_parar.setObjectName("botao_parar")
         self.botao_parar.setText("Parar")
-
-        
+        self.botao_parar.setDisabled(True)
 
         self.botao_iniciar = QtWidgets.QPushButton(self.centralwidget)
         self.botao_iniciar.setGeometry(QtCore.QRect(200, 220, 239, 24))
@@ -118,16 +119,27 @@ class Ui_MainWindow(object):
 
         self.spinBox_tempo = QtWidgets.QSpinBox(self.centralwidget)
         self.spinBox_tempo.setGeometry(QtCore.QRect(35, 50, 81, 22))
+        self.spinBox_tempo.setMinimum(1)
         self.spinBox_tempo.setMaximum(99999)
         self.spinBox_tempo.setObjectName("spinBox_tempo")
         self.spinBox_tempo.setDisabled(True)
 
+
+        self.label_lado = QtWidgets.QLabel(self.centralwidget)
+        self.label_lado.setObjectName("label_lado")
+        self.label_lado.setGeometry(QtCore.QRect(125, 55, 10, 10))
+        self.label_lado.setText("m")
+        self.label_lado.setDisabled(True)
+
+
         
         self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
-        self.checkBox.setGeometry(QtCore.QRect(20, 20, 131, 20))
+        self.checkBox.setGeometry(QtCore.QRect(20, 20, 150, 20))
         self.checkBox.setObjectName("checkBox")
         MainWindow.setCentralWidget(self.centralwidget)
-        self.checkBox.setText("Com tempo limite?")
+        self.checkBox.setText("Fechar automaticamente?")
+        self.checkBox.clicked['bool'].connect(self.label_lado.setEnabled) # type: ignore
+
         
         self.lcdnumero = QtWidgets.QLCDNumber(self.centralwidget)
         self.lcdnumero.setGeometry(QtCore.QRect(40, 180, 81, 23))
@@ -143,10 +155,7 @@ class Ui_MainWindow(object):
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Light, brush)
         self.lcdnumero.setPalette(palette)
         self.lcdnumero.setObjectName("lcdnumero")
-
         # ========================================================================================
-
-
 
         self.line = QtWidgets.QFrame(self.centralwidget)
         self.line.setGeometry(QtCore.QRect(-20, 135, 531, 21))
@@ -156,15 +165,33 @@ class Ui_MainWindow(object):
 
         self.botao_iniciar.clicked['bool'].connect(self.textEdit_porta.setEnabled) # type: ignore
         self.botao_iniciar.clicked['bool'].connect(self.textEdit_ip.setEnabled) # type: ignore
-        self.botao_parar.clicked['bool'].connect(self.textEdit_porta.setDisabled) # type: ignore
-        self.botao_parar.clicked['bool'].connect(self.textEdit_ip.setDisabled) # type: ignore
-        self.checkBox.clicked['bool'].connect(self.spinBox_tempo.setEnabled) # type: ignore
-        self.botao_iniciar.clicked['bool'].connect(self.textEdit_caminho.setEnabled) # type: ignore
-        self.botao_parar.clicked['bool'].connect(self.textEdit_caminho.setDisabled) # type: ignore
+        self.botao_iniciar.clicked['bool'].connect(self.botao_iniciar.setEnabled) # type: ignore
+        self.botao_iniciar.clicked['bool'].connect(self.botao_parar.setDisabled) # type: ignore
         self.botao_iniciar.clicked['bool'].connect(self.spinBox_tempo.setEnabled) # type: ignore
         self.botao_iniciar.clicked['bool'].connect(self.checkBox.setEnabled) # type: ignore
+
+        self.botao_iniciar.clicked['bool'].connect(self.label_lado.setEnabled) # type: ignore
+        self.botao_iniciar.clicked['bool'].connect(self.label_ip.setEnabled) # type: ignore
+        self.botao_iniciar.clicked['bool'].connect(self.label_porta.setEnabled) # type: ignore
+        self.botao_iniciar.clicked['bool'].connect(self.label_caminho.setEnabled) # type: ignore
+
+        
+        self.botao_parar.clicked['bool'].connect(self.textEdit_porta.setDisabled) # type: ignore
+        self.botao_parar.clicked['bool'].connect(self.textEdit_ip.setDisabled) # type: ignore
+        self.botao_parar.clicked['bool'].connect(self.textEdit_caminho.setDisabled) # type: ignore
         self.botao_parar.clicked['bool'].connect(self.spinBox_tempo.setDisabled) # type: ignore
         self.botao_parar.clicked['bool'].connect(self.checkBox.setDisabled) # type: ignore
+
+        self.botao_parar.clicked['bool'].connect(self.label_lado.setDisabled) # type: ignore
+        self.botao_parar.clicked['bool'].connect(self.label_ip.setDisabled) # type: ignore
+        self.botao_parar.clicked['bool'].connect(self.label_porta.setDisabled) # type: ignore
+        self.botao_parar.clicked['bool'].connect(self.label_caminho.setDisabled) # type: ignore
+        self.botao_parar.clicked['bool'].connect(self.botao_iniciar.setDisabled) # type: ignore
+        self.botao_parar.clicked['bool'].connect(self.botao_parar.setEnabled) # type: ignore
+
+        self.checkBox.clicked['bool'].connect(self.spinBox_tempo.setEnabled) # type: ignore
+        self.botao_iniciar.clicked['bool'].connect(self.textEdit_caminho.setEnabled) # type: ignore
+
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
         MainWindow.setTabOrder(self.textEdit_ip, self.textEdit_porta)
