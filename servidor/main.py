@@ -180,18 +180,18 @@ class Ui_MainWindow(object):
         self.botao_iniciar.clicked['bool'].connect(self.label_caminho.setEnabled) # type: ignore
 
         
-        self.botao_parar.clicked['bool'].connect(self.textEdit_porta.setDisabled) # type: ignore
-        self.botao_parar.clicked['bool'].connect(self.textEdit_ip.setDisabled) # type: ignore
-        self.botao_parar.clicked['bool'].connect(self.textEdit_caminho.setDisabled) # type: ignore
-        self.botao_parar.clicked['bool'].connect(self.spinBox_tempo.setDisabled) # type: ignore
-        self.botao_parar.clicked['bool'].connect(self.checkBox.setDisabled) # type: ignore
+        #self.botao_parar.clicked['bool'].connect(self.textEdit_porta.setDisabled) # type: ignore
+        #self.botao_parar.clicked['bool'].connect(self.textEdit_ip.setDisabled) # type: ignore
+        #self.botao_parar.clicked['bool'].connect(self.textEdit_caminho.setDisabled) # type: ignore
+        #self.botao_parar.clicked['bool'].connect(self.spinBox_tempo.setDisabled) # type: ignore
+        #self.botao_parar.clicked['bool'].connect(self.checkBox.setDisabled) # type: ignore
 
-        self.botao_parar.clicked['bool'].connect(self.label_lado.setDisabled) # type: ignore
-        self.botao_parar.clicked['bool'].connect(self.label_ip.setDisabled) # type: ignore
-        self.botao_parar.clicked['bool'].connect(self.label_porta.setDisabled) # type: ignore
-        self.botao_parar.clicked['bool'].connect(self.label_caminho.setDisabled) # type: ignore
-        self.botao_parar.clicked['bool'].connect(self.botao_iniciar.setDisabled) # type: ignore
-        self.botao_parar.clicked['bool'].connect(self.botao_parar.setEnabled) # type: ignore
+        #self.botao_parar.clicked['bool'].connect(self.label_lado.setDisabled) # type: ignore
+        #self.botao_parar.clicked['bool'].connect(self.label_ip.setDisabled) # type: ignore
+        #self.botao_parar.clicked['bool'].connect(self.label_porta.setDisabled) # type: ignore
+        #self.botao_parar.clicked['bool'].connect(self.label_caminho.setDisabled) # type: ignore
+        #self.botao_parar.clicked['bool'].connect(self.botao_iniciar.setDisabled) # type: ignore
+        #self.botao_parar.clicked['bool'].connect(self.botao_parar.setEnabled) # type: ignore
 
         self.checkBox.clicked['bool'].connect(self.spinBox_tempo.setEnabled) # type: ignore
         self.botao_iniciar.clicked['bool'].connect(self.textEdit_caminho.setEnabled) # type: ignore
