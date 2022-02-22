@@ -103,7 +103,7 @@ class Ui_MainWindow(object):
         self.textEdit_caminho = QtWidgets.QTextEdit(self.formLayoutWidget_2)
         self.textEdit_caminho.setObjectName("textEdit_caminho")
         self.formLayout_2.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.textEdit_caminho)
-        self.textEdit_caminho.setPlaceholderText("Caminho da pasta especifica ou deixe vazio")
+        self.textEdit_caminho.setPlaceholderText("Caminho de uma pasta especifica ou deixe vazio")
         # ========================================================================================
         #=================================== Botão ======================================
 
@@ -211,17 +211,46 @@ class Ui_MainWindow(object):
         MainWindow.show()
 
     def abrir_servidor(self):
+        import os
         import http.server
         import socketserver
         global httpd
         global servidor_aberto
+        global IP, PORT
 
-        PORT = 8000
+
+        if self.textEdit_ip.toPlainText() == "": # Ip
+            IP = ""
+        else:
+            IP = self.textEdit_ip.toPlainText()
+        
+
+        if self.textEdit_ip.toPlainText() == "": #Porta
+            PORT = 8000
+        else:
+            PORT = self.textEdit_ip.toPlainText()
+
+
+
+        if self.textEdit_caminho.toPlainText() == "": #Caminho
+            os.chdir(sys.path[0])
+        else:
+            try:
+                os.chdir(self.textEdit_caminho.toPlainText())
+            except:
+                os.chdir(sys.path[0])
 
         Handler = http.server.SimpleHTTPRequestHandler
-        httpd = socketserver.TCPServer(("", PORT), Handler)
+        httpd = socketserver.TCPServer((IP, PORT), Handler)
+
+        if IP == "":
+            self.label_ip_botao.setText(f"IP:    ipv4 ou 'localhost':{PORT}")
+        else:
+            self.label_ip_botao.setText(f"{IP}:{PORT}")
+        self.label_status.setText("Status:         Iniciado")
 
         httpd.serve_forever()
+
 
     def cronometro(self):
         import time
